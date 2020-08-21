@@ -1,0 +1,52 @@
+{% extends "base2.html" %}
+{% block title %}Log-in{% endblock %}
+{% block content %}
+<!-- .auth -->
+<main class="auth">
+  <header id="auth-header" class="auth-header">
+    <h1>
+        <p style="padding-bottom: 15px;"> JJWC Knowledge Management </p>
+      <span class="sr-only">Sign In</span>
+    </h1>
+  </header>
+  <!-- form -->
+  <form class="auth-form" method="post">
+    <!-- .form-group -->
+    <div class="form-group">
+      <div class="form-label-group">
+        <input type="text" id="id_username" name="username" class="form-control" placeholder="Email" autofocus>
+        <label for="id_username">Email</label>
+      </div>
+    </div>
+    <!-- /.form-group -->
+
+    <!-- .form-group -->
+    <div class="form-group">
+      <div class="form-label-group">
+        <input type="password" id="id_password" name="password" class="form-control" placeholder="Password">
+        <label for="id_password">Password</label>
+      </div>
+    </div>
+    <!-- /.form-group -->
+
+    <!-- .form-group -->
+    <div class="form-group">
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+    </div>
+    <!-- /.form-group -->
+
+
+    <!-- recovery links -->
+    <div class="text-center pt-3">
+      <a href="{% url "password_reset" %}" class="link">Forgot Password?</a>
+    </div>
+    <!-- /recovery links -->
+      {% csrf_token %}
+  </form>
+  <!-- /.auth-form -->
+
+  <!-- copyright -->
+  <footer class="auth-footer">&copy; 2020 All Rights Reserved. <a href="#">Privacy</a> and <a href="#">Terms</a></footer>
+</main>
+<!-- /.auth -->
+{% endblock %}

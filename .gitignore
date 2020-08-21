@@ -1,0 +1,7 @@
+/filer_public/
+/email_out/
+/account/static/assets/
+.DS_Store
+.idea
+__pycache__/
+*.py[cod]
