@@ -8,26 +8,34 @@ from django.contrib.auth.models import (
 
 class UserManager(BaseUserManager):
 
-    def create_user(self, email, first_name, last_name, password=None):
-        user = super.create_user(
+    # def create_user(self, email, first_name, last_name,is_staff=False,is_superuser=False, password=None):
+    #
+    #     user = super().create_user(
+    #         username=email,
+    #         email=email,
+    #         password=password,
+    #         is_staff=is_staff,
+    #         is_superuser=is_superuser,
+    #         first_name=first_name,
+    #         last_name=last_name,
+    #     )
+    #     return user
+
+    def create_superuser(self, email, password,first_name,last_name, position, division):
+        user = super().create_user(
             username=email,
             email=email,
             password=password,
-            is_staff=False,
-            is_superuser=False,
             first_name=first_name,
             last_name=last_name,
-        )
-        return user
-
-    def create_superuser(self, email=None, first_name=None, last_name=None, password=None):
-        user = self.create_user(
-            email=email,
-            password=password,
+            position=Position.objects.get(id=position),
+            division= Division.objects.get(id=division),
             is_staff=True,
             is_superuser=True,
         )
         return user
+
+
 
 class Division(models.Model):
     name = models.CharField(unique=True, null=False, blank=False, max_length=100)
@@ -64,10 +72,11 @@ class Unit(models.Model):
     def __str__(self):
         return self.name
 
+
 class MyUser(AbstractUser):
     USERNAME_FIELD = 'email'
     email = models.EmailField(('email address'), unique=True)  # changes email to unique and blank to false
-    REQUIRED_FIELDS = [('first_name', 'last_name',)]  # removes email from REQUIRED_FIELDS
+      # removes email from REQUIRED_FIELDS
     objects = UserManager()
     first_name = models.CharField(null=False, blank=False, max_length=100)
     last_name = models.CharField(null=False, blank=False, max_length=100)
@@ -75,6 +84,7 @@ class MyUser(AbstractUser):
     division = models.ForeignKey(Division, on_delete=models.DO_NOTHING)
     unit = models.ForeignKey(Unit, on_delete=models.DO_NOTHING, null=True, blank=True)
     should_change_password = models.BooleanField(null=False, default=True)
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'position', 'division']
 
 
 
