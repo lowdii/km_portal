@@ -26,7 +26,7 @@ SECRET_KEY = 'iw049nw77mz(ull0n=o@vr(av4fzbd7m31e&$u7hm&&*g7-o0v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['radiant-oasis-36548.herokuapp.com']
 
 
 # Application definition
@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'km_portal2.urls'
@@ -79,13 +80,22 @@ WSGI_APPLICATION = 'km_portal2.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
+    #'default': {
+    #    'ENGINE': 'django.db.backends.mysql',
+     #   'NAME': 'km_portal2',
+     #   'USER': 'root',
+     #   'PASSWORD': 'root',
+     #   'HOST': '127.0.0.1',
+     #   'PORT': '32768',
+   # }
+
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'km_portal2',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
-        'PORT': '32768',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd9m403gcm9noec',
+        'USER': 'xziejurxsvjbfu',
+        'PASSWORD': '1b1e5ccaa31db3f0885daf7de97e7ce729e9b7913452bb5e4e7966c49f52feae',
+        'HOST': 'ec2-107-20-15-85.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -126,7 +136,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
