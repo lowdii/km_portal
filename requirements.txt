@@ -6,4 +6,3 @@ Mysqlclient
 psycopg2-binary
 dj-database-url
 whitenoise
-crispy_forms
