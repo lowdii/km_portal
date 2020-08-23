@@ -1,0 +1,15 @@
+{% extends "base_with_header_and_aside.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Add document{% endblock %}
+{% block app_content %}
+ <form class="auth-form" method="post">
+    {{ form|crispy }}
+    <!-- /.form-group -->
+     <input type="hidden" name="next" value="{{ next }}" />
+    <!-- .form-group -->
+    <div class="form-group">
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+    </div>
+      {% csrf_token %}
+  </form>
+{% endblock %}

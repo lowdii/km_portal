@@ -3,6 +3,7 @@ from django.core.mail import send_mail
 from django.contrib.auth.forms import PasswordChangeForm as BasePasswordChangeForm
 from .models import MyUser
 
+
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
@@ -42,3 +43,4 @@ def send_email(to_email, password):
     subject = "Account Creation in KM Portal"
     message = "Account creation. Username: {} Default Password: {}".format(to_email, password)
     send_mail(subject, message, 'from@example.com', [to_email], fail_silently=False)
+

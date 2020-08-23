@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'file_manager.apps.FileManagerConfig',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -58,7 +59,7 @@ ROOT_URLCONF = 'km_portal2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'km_portal2/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -139,5 +140,10 @@ EMAIL_FILE_PATH = "email_out"
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
+LOGOUT_REDIRECT_URL = 'login'
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "km_portal2/static"),
+]

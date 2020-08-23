@@ -1,5 +1,7 @@
 /filer_public/
 /email_out/
+/upload/
+/uploads/
 /account/static/assets/
 .DS_Store
 .idea

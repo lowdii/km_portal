@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import show_categories, show_cat
+from .views import add_document, document_list, download, document_main_page
 urlpatterns = [
-    path('categories/',show_categories, name='categories'),
-    path('categories2/', show_cat , name='categories2'),
-
+    path('', document_main_page, name='document_main_page'),
+    path('add_document/', add_document, name='add_document'),
+    path('list_document/', document_list, name='list_document'),
+    path('download/<int:file_id>', download, name='download'),
 ]

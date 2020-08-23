@@ -3,11 +3,7 @@ from django.contrib import admin
 # Register your models here.
 
 from mptt.admin import MPTTModelAdmin
-from .models import Category
-from .models import Year
-from .models import SecratariatLevel
-from .models import DocumentType
-
+from .models import Category, SecratariatLevel, Year, DocumentType, DocumentedInformation
 class CategoryAdmin(MPTTModelAdmin):
     mptt_level_indent = 20
     list_display = ('name',)
@@ -27,3 +23,6 @@ class SecratariatLevelAdmin(admin.ModelAdmin):
 class DocumentTypeAdmin(admin.ModelAdmin):
     list_display = ('type', 'description',)
 
+@admin.register(DocumentedInformation)
+class DocumentedInformationAdmin(admin.ModelAdmin):
+    pass

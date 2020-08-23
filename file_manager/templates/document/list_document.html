@@ -1,0 +1,79 @@
+{% extends "base_with_header_and_aside.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block app_content %}
+ <!-- responsive datatable -->
+
+    <!-- .page -->
+<div class="page">
+  <!-- .page-inner -->
+  <div class="page-inner">
+    <!-- .page-title-bar -->
+    <header class="page-title-bar">
+      <!-- .breadcrumb -->
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active">
+            <a href="#">
+              <i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Back
+            </a>
+          </li>
+        </ol>
+      </nav>
+      <!-- /.breadcrumb -->
+
+      <!-- title -->
+      <h1 class="page-title">Documents</h1>
+      <!-- /title -->
+    </header>
+    <!-- /.page-title-bar -->
+
+    <!-- .page-section -->
+    <div class="page-section">
+      <!-- .card -->
+      <div class="card card-fluid">
+        <!-- .card-body -->
+        <div class="card-body">
+          <!-- .table -->
+          <table id="dt-responsive" class="table dt-responsive nowrap w-100">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Secretariat Level</th>
+                <th>Year</th>
+                <th>Created Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+              <tbody>
+              {% for document in documents %}
+                  <tr>
+                    <th>{{ document.title }}</th>
+                    <th>{{ document.description }}</th>
+                    <th>{{ document.document_type }}</th>
+                    <th>{{ document.secretariat_level }}</th>
+                    <th>{{ document.year }}</th>
+                    <th>{{ document.created_date }}</th>
+                    <th>
+                        <a class="btn btn-sm btn-icon btn-secondary" target="_blank" href="/account/download/{{ document.id }}"><i class="fa fa-eye"></i></a>
+                        <a class="btn btn-sm btn-icon btn-secondary" href="/account/download/{{ document.id }}" download><i class="fa fa-download"></i></a>
+                    </th>
+                  </tr>
+              {% endfor %}
+              </tbody>
+          </table>
+          <!-- /.table -->
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.page-section -->
+  </div>
+  <!-- /.page-inner -->
+</div>
+<!-- /.page -->
+
+     {% include "pagination.html" with page=posts %}
+{% endblock %}
