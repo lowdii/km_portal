@@ -37,12 +37,13 @@
       <!-- .stacked-menu -->
       <nav id="stacked-menu" class="stacked-menu">
         <!-- .menu -->
+      {% with request.resolver_match.url_name as url_name %}
         <ul class="menu">
-          <li class="menu-item has-active">
-                  <a href="index.html" class="menu-link"><span class="menu-icon fas fa-home"></span> <span class="menu-text">Dashboard</span></a>
+          <li class="menu-item {% if url_name == 'dashboard'  %}has-active{% endif %}">
+                  <a href="{% url "dashboard" %}" class="menu-link"><span class="menu-icon fas fa-home"></span> <span class="menu-text">Dashboard</span></a>
                 </li>
-            <li class="menu-item">
-                  <a href="#" class="menu-link"><span class="menu-icon far fa-file"></span> <span class="menu-text">Documents</span></a> <!-- child menu -->
+            <li class="menu-item {% if  url_name|slice:":8" == 'document' %}has-active{% endif %}">
+                  <a href="{% url "document_main" %}" class="menu-link"><span class="menu-icon far fa-file"></span> <span class="menu-text">Documents</span></a> <!-- child menu -->
                 </li>
               <li class="menu-item">
                   <a href="#" class="menu-link"><span class="menu-icon fas fa-calendar"></span> <span class="menu-text">Calendar</span></a>
@@ -51,6 +52,7 @@
                   <a href="#" class="menu-link"><span class="menu-icon fas fa-chalkboard"></span> <span class="menu-text">Forum</span></a>
             </li>
         </ul>
+      {% endwith %}
         <!-- /.menu -->
       </nav>
       <!-- /.stacked-menu -->

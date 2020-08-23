@@ -1,15 +1,27 @@
-{% extends "base_with_header_and_aside.html" %}
 {% load crispy_forms_tags %}
-{% block title %}Add document{% endblock %}
-{% block app_content %}
- <form class="auth-form" method="post">
-    {{ form|crispy }}
-    <!-- /.form-group -->
-     <input type="hidden" name="next" value="{{ next }}" />
-    <!-- .form-group -->
-    <div class="form-group">
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
-    </div>
-      {% csrf_token %}
-  </form>
-{% endblock %}
+ <div class="modal hide" id="add_document_modal">
+     <div class="modal-dialog" role="document">
+         <div class="modal-content">
+              <form  method="post" id="add_document_form" action="{% url "document_add" %}">
+
+                <div class="modal-header">
+
+                    <h3 class="modal-title"> Add document</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                 </div>
+                <div class="modal-body">
+                    {{ form|crispy }}
+                    {% csrf_token %}
+                </div>
+                <div class="modal-footer">
+                    <button type="buttony"  class="btn btn-lg btn-secondary" data-dismiss="modal" aria-label="Close">
+                       Close
+                    </button>
+                    <button class="btn btn-lg btn-primary" type="submit">Save</button>
+                </div>
+              </form>
+         </div>
+     </div>
+</div>

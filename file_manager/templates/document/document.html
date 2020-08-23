@@ -9,6 +9,8 @@
 
     <!-- .page-section -->
     <div class="page-section">
+
+    {% include "document/add_document.html" with form=form %}
       <!-- .section-block -->
       <div class="section-block">
            <div class="row mb-4">
@@ -16,9 +18,9 @@
           <div class="col-auto">
             <!-- invite members -->
             <div class="dropdown">
-              <button class="btn btn-primary" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+              <a id="add_document" href="#" data-form="{% url 'document_add' %}"  title="Add Document" class="btn btn-primary" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                  Add Document
-              </button>
+              </a>
             </div>
             <!-- /invite members -->
           </div>
@@ -51,32 +53,24 @@
           <!-- /.col-auto -->
         </div>
         <!-- /grid row -->
-          {% for i in '0123456789'|make_list %}
+          {% for type in doc_types %}
           <div class="card mb-2">
                     <!-- .card-body -->
-                    <div class="card-body">
+                    <div class="card-body" style="cursor: pointer;">
                       <!-- grid row -->
+                        <a href="#" style=" display: block;height: 100%;width: 100%; text-decoration: none;"></a>
                       <div class="row align-items-center">
                         <!-- grid column -->
                         <!-- /grid column -->
                         <!-- grid column -->
-                        <div class="col">
-                          <h3 class="card-title">
-                            <a href="user-profile.html">Downloadable Forms</a>
+                          <div class="col">
+                        <h3 class="card-title">
+                            {{ type.type }}
                           </h3>
-                          <h6 class="card-subtitle text-muted">This are the downloadable forms</h6>
+                          <h6 class="card-subtitle text-muted">{{ type.description }}</h6>
                         </div><!-- /grid column -->
-                        <!-- /grid column -->
-                        <div class="col-auto">
-                           <!-- .dropdown -->
-                          <div class="dropdown d-inline-block">
 
-                            <div class="dropdown-menu dropdown-menu-right">
-                              <div class="dropdown-arrow"></div><button type="button" class="dropdown-item">Invite to a team</button> <button type="button" class="dropdown-item">Copy member ID</button>
-                              <div class="dropdown-divider"></div><button type="button" class="dropdown-item">Remove</button>
-                            </div>
-                          </div><!-- /.dropdown -->
-                        </div><!-- /grid column -->
+                        <!-- /grid column -->
                       </div><!-- /grid row -->
                     </div><!-- /.card-body -->
                   </div>
@@ -90,4 +84,21 @@
 
 </div>
 <!-- /.page -->
+
+
 {%  endblock %}
+
+ {% block page_specific_js %}
+     <script>
+            $("#add_document").click(function (ev) { // for each edit contact url
+                ev.preventDefault(); // prevent navigation
+                $("#add_document_modal").modal('show');
+                return false; // prevent the click propagation
+            });
+
+            $(".card-body").click(function (ev) { // for each edit contact url
+                location.href = 'list_document';
+            });
+
+</script>
+    {% endblock %}

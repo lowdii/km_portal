@@ -1,4 +1,5 @@
 from account.models import Division, Position, Unit
+from file_manager.models import DocumentType
 
 Division.objects.create(name="Office of the Executive Director")
 Division.objects.create(name="Advocacy and Communication Division")
@@ -53,3 +54,19 @@ Unit.objects.create(name="HR / Personnel Unit")
 Unit.objects.create(name="Procurement Unit")
 Unit.objects.create(name="Records Unit")
 Unit.objects.create(name="Other")
+
+DocumentType.objects.create(type='JJWC WFP', description='JJWC WFP')
+DocumentType.objects.create(type='RJJWC WFP', description='RJJWC WFP')
+DocumentType.objects.create(type='Division WFP', description='Division WFP')
+DocumentType.objects.create(type='Internal Issuances', description='Internal Issuances')
+DocumentType.objects.create(type='CNJIP', description='CNJIP')
+DocumentType.objects.create(type='CRJIP', description='CRJIP')
+DocumentType.objects.create(type='National Situational Analysis Report on CICL and CAR ', description='National Situational Analysis Report on CICL and CAR ')
+DocumentType.objects.create(type='Regional Situational Analysis Report on CICL and CAR', description='Regional Situational Analysis Report on CICL and CAR')
+DocumentType.objects.create(type='Position Papers', description='Position Papers')
+DocumentType.objects.create(type='Downloadable forms', description='Downloadable forms')
+DocumentType.objects.create(type='Division Accomplishment Reports', description='Division Accomplishment Reports')
+DocumentType.objects.create(type='RJJWC Accomplishment Reports ', description='RJJWC Accomplishment Reports ')
+DocumentType.objects.create(type='Status of JJWA Implementation Report', description='Status of JJWA Implementation Report')
+DocumentType.objects.create(type='Statistics', description='Statistics')
+DocumentType.objects.create(type='List of LGUs with CLJIP', description='List of LGUs with CLJIP')

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .forms import DocumentedInformationForm
-from .models import DocumentedInformation
+from .models import DocumentedInformation, DocumentType
 from django.core.paginator import Paginator, EmptyPage,\
                                   PageNotAnInteger
 from django.http import FileResponse
@@ -8,16 +8,23 @@ from django.http import FileResponse
 
 
 def document_main_page(request):
+    form = DocumentedInformationForm
+    doc_types = DocumentType.objects.all()
     return render(request,
                   'document/document.html',
-                  {'section': 'dashboard'})
+                  {'form': form,
+                   'doc_types': doc_types})
 
 
 def add_document(request):
-    form = DocumentedInformationForm
-    return render(request,
-                  'document/add_document.html',
-                  {'form': form})
+    if request.method == 'POST':
+        doc_form = DocumentedInformationForm(request.POST)
+        if doc_form.is_valid():
+            new_doc = doc_form.save(commit=False)
+            new_doc.save()
+            return render(request,
+                          'document/document.html',
+                            {'form': doc_form})
 
 
 def document_list(request):

@@ -20,7 +20,6 @@
         </ol>
       </nav>
       <!-- /.breadcrumb -->
-
       <!-- title -->
       <h1 class="page-title">Documents</h1>
       <!-- /title -->
@@ -56,8 +55,8 @@
                     <th>{{ document.year }}</th>
                     <th>{{ document.created_date }}</th>
                     <th>
-                        <a class="btn btn-sm btn-icon btn-secondary" target="_blank" href="/account/download/{{ document.id }}"><i class="fa fa-eye"></i></a>
-                        <a class="btn btn-sm btn-icon btn-secondary" href="/account/download/{{ document.id }}" download><i class="fa fa-download"></i></a>
+                        <a class="btn btn-sm btn-icon btn-secondary" target="_blank" href="{% url "document_download" document.id %}"><i class="fa fa-eye"></i></a>
+                        <a class="btn btn-sm btn-icon btn-secondary" href="{% url "document_download" document.id %}" download><i class="fa fa-download"></i></a>
                     </th>
                   </tr>
               {% endfor %}
