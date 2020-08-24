@@ -1,12 +1,12 @@
 {% load crispy_forms_tags %}
- <div class="modal hide" id="add_document_modal">
+ <div class="modal hide" id="add_event_modal">
      <div class="modal-dialog" role="document">
          <div class="modal-content">
-              <form  method="post" enctype="multipart/form-data" id="add_document_form" action="{% url "document_add" %}" >
+              <form  method="post" enctype="multipart/form-data" id="add_event_form" action="{% url  "calendar_add" %}" >
 
                 <div class="modal-header">
 
-                    <h3 class="modal-title"> Add document</h3>
+                    <h3 class="modal-title"> Add Event</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -14,7 +14,8 @@
                 <div class="modal-body">
                     {{ form|crispy }}
                     {% csrf_token %}
-                </div>
+
+                                </div>
                 <div class="modal-footer">
                     <button type="buttony"  class="btn btn-lg btn-secondary" data-dismiss="modal" aria-label="Close">
                        Close

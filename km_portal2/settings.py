@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['radiant-oasis-36548.herokuapp.com']
 INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'file_manager.apps.FileManagerConfig',
+    'calendar_manager.apps.CalendarManagerConfig',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',

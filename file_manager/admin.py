@@ -21,8 +21,19 @@ class SecratariatLevelAdmin(admin.ModelAdmin):
 
 @admin.register(DocumentType)
 class DocumentTypeAdmin(admin.ModelAdmin):
-    list_display = ('type', 'description',)
+    list_display = ('type','description',)
 
 @admin.register(DocumentedInformation)
 class DocumentedInformationAdmin(admin.ModelAdmin):
     pass
+
+
+class DocumentsForApproval(DocumentedInformation):
+    class Meta:
+        proxy = True
+
+
+@admin.register(DocumentsForApproval)
+class DocumentsForApprovalAdmin(admin.ModelAdmin):
+    def get_queryset(self, request):
+        return self.model.objects.filter(approved=False)

@@ -18,13 +18,15 @@ def document_main_page(request):
 
 def add_document(request):
     if request.method == 'POST':
-        doc_form = DocumentedInformationForm(request.POST)
+        doc_form = DocumentedInformationForm(request.POST, request.FILES)
         if doc_form.is_valid():
             new_doc = doc_form.save(commit=False)
             new_doc.save()
             return render(request,
                           'document/document.html',
                             {'form': doc_form})
+    else:
+        return 'test'
 
 
 def document_list(request):

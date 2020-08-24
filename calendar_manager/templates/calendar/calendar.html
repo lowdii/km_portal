@@ -1,0 +1,62 @@
+{% extends "base_with_header_and_aside.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block app_content %}
+<div class="page">
+  <!-- .page-inner -->
+  <div class="page-inner">
+    <!-- .page-title-bar -->
+
+    <!-- .page-section -->
+    <div class="page-section">
+      <!-- .card -->
+      <div id="calendar"></div>
+      <!-- /.card -->
+
+
+    </div>
+    <!-- /.page-section -->
+       {% include "calendar/add_event.html" with form=form %}
+  </div>
+  <!-- /.page-inner -->
+    <button id="add_event" type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button>
+</a>
+</div>
+
+
+{% endblock %}
+
+ {% block page_specific_js %}
+     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.js'></script>
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+       headerToolbar: {
+                start: 'prev,next today',
+                center: 'title',
+                end: 'dayGridMonth,listYear'
+            },
+            aspectRatio: 1.9,
+          initialView: 'dayGridMonth',
+    events: 'https://fullcalendar.io/demo-events.json'
+
+        });
+        calendar.render();
+      });
+
+       $("#add_event").click(function (ev) { // for each edit contact url
+                ev.preventDefault(); // prevent navigation
+                $("#add_event_modal").modal('show');
+                return false; // prevent the click propagation
+            });
+
+
+$('.datetimeinput').flatpickr({
+    enableTime: true,
+    dateFormat: "Y-m-d H:i"
+});
+    </script>
+    {% endblock %}
