@@ -13,7 +13,7 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item active">
-            <a href="#">
+            <a href="{% url "document_main" %}">
               <i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Back
             </a>
           </li>
@@ -55,8 +55,8 @@
                     <th>{{ document.year }}</th>
                     <th>{{ document.created_date }}</th>
                     <th>
-                        <a class="btn btn-sm btn-icon btn-secondary" target="_blank" href="{% url "document_download" document.id %}"><i class="fa fa-eye"></i></a>
-                        <a class="btn btn-sm btn-icon btn-secondary" href="{% url "document_download" document.id %}" download><i class="fa fa-download"></i></a>
+                        <a class="btn btn-sm btn-icon btn-secondary" title="preview" target="_blank" href="{% url "document_download" document.id %}"><i class="fa fa-eye"></i></a>
+                        <a class="btn btn-sm btn-icon btn-secondary" title="download" href="{% url "document_download" document.id %}" download><i class="fa fa-download"></i></a>
                     </th>
                   </tr>
               {% endfor %}

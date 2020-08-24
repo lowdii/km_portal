@@ -2,7 +2,7 @@
  <div class="modal hide" id="add_document_modal">
      <div class="modal-dialog" role="document">
          <div class="modal-content">
-              <form  method="post" id="add_document_form" action="{% url "document_add" %}">
+              <form  method="post" enctype="multipart/form-data" id="add_document_form" action="{% url "document_add" %}" >
 
                 <div class="modal-header">
 

@@ -45,8 +45,8 @@
             <li class="menu-item {% if  url_name|slice:":8" == 'document' %}has-active{% endif %}">
                   <a href="{% url "document_main" %}" class="menu-link"><span class="menu-icon far fa-file"></span> <span class="menu-text">Documents</span></a> <!-- child menu -->
                 </li>
-              <li class="menu-item">
-                  <a href="#" class="menu-link"><span class="menu-icon fas fa-calendar"></span> <span class="menu-text">Calendar</span></a>
+              <li class="menu-item {% if  url_name|slice:":8" == 'calendar' %}has-active{% endif %}">
+                  <a href="{% url "calendar_main" %}" class="menu-link"><span class="menu-icon fas fa-calendar"></span> <span class="menu-text">Calendar</span></a>
             </li>
               <li class="menu-item">
                   <a href="#" class="menu-link"><span class="menu-icon fas fa-chalkboard"></span> <span class="menu-text">Forum</span></a>
