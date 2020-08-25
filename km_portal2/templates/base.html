@@ -35,10 +35,13 @@
     <!-- BEGIN PAGE LEVEL STYLES -->
     <!-- styles for specific page goes here -->
     <!-- END PAGE LEVEL STYLES -->
-
+{% block css %}
+        {% endblock %}
+  {% block extra_css %}
+    {% endblock  %}
   </head>
   <body>
-    {% block content %}
+    {% block content2 %}
     {% endblock %}
     {% block body %}
     {% endblock %}
@@ -48,7 +51,11 @@
   {% include "scripts.html" %}
     {% block page_specific_js %}
     {% endblock %}
+  {% block extra_head %}{% endblock %}
 
-      {% block extra_head %}
-        {% endblock %}
+   {% block js %}
+    {% endblock  %}
+    {% block extra_js %}
+    {% endblock  %}
+
 </html>
