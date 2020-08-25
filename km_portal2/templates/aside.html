@@ -37,7 +37,7 @@
       <!-- .stacked-menu -->
       <nav id="stacked-menu" class="stacked-menu">
         <!-- .menu -->
-      {% with request.resolver_match.url_name as url_name %}
+      {% with url_name=request.resolver_match.url_name app_name=request.resolver_match.app_name %}
         <ul class="menu">
           <li class="menu-item {% if url_name == 'dashboard'  %}has-active{% endif %}">
                   <a href="{% url "dashboard" %}" class="menu-link"><span class="menu-icon fas fa-home"></span> <span class="menu-text">Dashboard</span></a>
@@ -48,8 +48,8 @@
               <li class="menu-item {% if  url_name|slice:":8" == 'calendar' %}has-active{% endif %}">
                   <a href="{% url "calendar_main" %}" class="menu-link"><span class="menu-icon fas fa-calendar"></span> <span class="menu-text">Calendar</span></a>
             </li>
-              <li class="menu-item">
-                  <a href="#" class="menu-link"><span class="menu-icon fas fa-chalkboard"></span> <span class="menu-text">Forum</span></a>
+              <li class="menu-item {% if  app_name|slice:":5" == 'forum' %}has-active{% endif %}">
+                  <a href="/forum" class="menu-link"><span class="menu-icon fas fa-chalkboard"></span> <span class="menu-text">Forum</span></a>
             </li>
         </ul>
       {% endwith %}

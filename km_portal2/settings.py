@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
+from machina import MACHINA_MAIN_STATIC_DIR
+from forum_manager import MACHINA_MAIN_TEMPLATE_DIR
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -34,6 +35,7 @@ ALLOWED_HOSTS = ['radiant-oasis-36548.herokuapp.com']
 INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'file_manager.apps.FileManagerConfig',
+    'forum_manager.apps.ForumManagerConfig',
     'calendar_manager.apps.CalendarManagerConfig',
     'crispy_forms',
     'django.contrib.admin',
@@ -42,7 +44,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Machina dependencies:
     'mptt',
+    'haystack',
+    'widget_tweaks',
+
+    # Machina apps:
+    'machina',
+    'machina.apps.forum',
+    'machina.apps.forum_conversation',
+    'machina.apps.forum_conversation.forum_attachments',
+    'machina.apps.forum_conversation.forum_polls',
+    'machina.apps.forum_feeds',
+    'machina.apps.forum_moderation',
+    'machina.apps.forum_search',
+    'machina.apps.forum_tracking',
+    'machina.apps.forum_member',
+    'machina.apps.forum_permission',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware'
+    'machina.apps.forum_permission.middleware.ForumPermissionMiddleware',
 ]
 
 ROOT_URLCONF = 'km_portal2.urls'
@@ -61,7 +81,8 @@ ROOT_URLCONF = 'km_portal2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'km_portal2/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'km_portal2/templates'),
+                              MACHINA_MAIN_TEMPLATE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,6 +90,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'machina.core.context_processors.metadata'
             ],
         },
     },
@@ -141,6 +163,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, "km_portal2/static"),
+    MACHINA_MAIN_STATIC_DIR,
 )
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -161,6 +185,36 @@ LOGOUT_REDIRECT_URL = 'login'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "km_portal2/static"),
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    },
+    'machina_attachments': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/tmp',
+    },
+}
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    },
+}
+
+MACHINA_DEFAULT_AUTHENTICATED_USER_FORUM_PERMISSIONS = [
+    'can_see_forum',
+    'can_read_forum',
+    'can_start_new_topics',
+    'can_reply_to_topics',
+    'can_edit_own_posts',
+    'can_post_without_approval',
+    'can_create_polls',
+    'can_vote_in_polls',
+    'can_download_file',
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR)
+MACHINA_FORUM_NAME = 'KM Portal Forum'
+MEDIA_URL = 'http://localhost:8001/'

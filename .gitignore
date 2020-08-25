@@ -7,3 +7,6 @@
 .idea
 __pycache__/
 *.py[cod]
+machina/
+st_search/
+whoosh_index/
