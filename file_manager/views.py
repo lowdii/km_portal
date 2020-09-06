@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import DocumentedInformationForm
 from .models import DocumentedInformation, DocumentType
 from django.core.paginator import Paginator, EmptyPage,\
@@ -22,16 +22,14 @@ def add_document(request):
         if doc_form.is_valid():
             new_doc = doc_form.save(commit=False)
             new_doc.save()
-            return render(request,
-                          'document/document.html',
-                            {'form': doc_form})
+            return redirect('document_list', type_id=new_doc.document_type.id)
     else:
         return 'test'
 
 
-def document_list(request):
-    object_list = DocumentedInformation.approved_docs.all()
-
+def document_list(request, type_id):
+    object_list = DocumentedInformation.approved_docs.filter(document_type=type_id)
+    form = DocumentedInformationForm
     paginator = Paginator(object_list, 15)
     page = request.GET.get('page')
     try:
@@ -45,7 +43,8 @@ def document_list(request):
     return render(request,
                   'document/list_document.html',
                   {'page': page,
-                   'documents': documents})
+                   'documents': documents,
+                   'form':form})
 
 
 def download(request, file_id):

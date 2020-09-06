@@ -5,64 +5,34 @@
 <div class="page has-sidebar has-sidebar-expand-xl">
   <!-- .page-inner -->
   <div class="page-inner">
+    <header class="page-title-bar">
 
+      <!-- title -->
+{#      <h1 class="page-title">Documents</h1>#}
+      <!-- /title -->
+
+    </header>
 
     <!-- .page-section -->
     <div class="page-section">
+    {% include "document/document_header.html" %}
 
-    {% include "document/add_document.html" with form=form %}
       <!-- .section-block -->
       <div class="section-block">
-           <div class="row mb-4">
-          <!-- .col-auto -->
-          <div class="col-auto">
-            <!-- invite members -->
-            <div class="dropdown">
-              <a id="add_document" href="#" data-form="{% url 'document_add' %}"  title="Add Document" class="btn btn-primary" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                 Add Document
-              </a>
-            </div>
-            <!-- /invite members -->
-          </div>
-          <!-- /.col-auto -->
-        </div>
-        <!-- grid row -->
-        <div class="row mb-4">
-          <!-- .col -->
-          <div class="col">
-            <!-- .has-clearable -->
-            <div class="has-clearable">
-              <button type="button" class="close" aria-label="Close">
-                <span aria-hidden="true"><i class="fa fa-times-circle"></i></span>
-              </button>
-              <input type="text" class="form-control" placeholder="Search">
-            </div>
-            <!-- /.has-clearable -->
-          </div>
-          <!-- /.col -->
-          <!-- .col-auto -->
-          <div class="col-auto">
-            <!-- invite members -->
-            <div class="dropdown">
-              <button class="btn btn-primary" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                 Search
-              </button>
-            </div>
-            <!-- /invite members -->
-          </div>
-          <!-- /.col-auto -->
-        </div>
+
         <!-- /grid row -->
           {% for type in doc_types %}
           <div class="card mb-2">
                     <!-- .card-body -->
                     <div class="card-body" style="cursor: pointer;">
                       <!-- grid row -->
+                        <input type="hidden" value="{{ type.id }}" class="type_id" >
                         <a href="#" style=" display: block;height: 100%;width: 100%; text-decoration: none;"></a>
                       <div class="row align-items-center">
                         <!-- grid column -->
                         <!-- /grid column -->
                         <!-- grid column -->
+
                           <div class="col">
                         <h3 class="card-title">
                             {{ type.type }}
@@ -97,7 +67,7 @@
             });
 
             $(".card-body").click(function (ev) { // for each edit contact url
-                location.href = 'list_document';
+                location.href = 'list_document/' + $(this).find('.type_id').val();
             });
 
 </script>

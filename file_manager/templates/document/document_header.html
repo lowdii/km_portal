@@ -1,0 +1,44 @@
+{% include "document/add_document.html" with form=form %}
+           <div class="row mb-4">
+          <!-- .col-auto -->
+          <div class="col-auto">
+            <!-- invite members -->
+            <div class="dropdown">
+              <a id="add_document" href="#" data-form="{% url 'document_add' %}"  title="Add Document" class="btn btn-primary" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                 Add Document
+              </a>
+            </div>
+            <!-- /invite members -->
+          </div>
+          <!-- /.col-auto -->
+        </div>
+
+
+
+            <form class="form-group">
+          <!-- .col -->
+        <!-- grid row -->
+        <div class="row mb-4">
+          <div class="col">
+            <!-- .has-clearable -->
+            <div class="has-clearable">
+              <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true"><i class="fa fa-times-circle"></i></span>
+              </button>
+              <input type="text" name="type_id" class="form-control" placeholder="Search">
+            </div>
+            <!-- /.has-clearable -->
+          </div>
+          <!-- /.col -->
+          <!-- .col-auto -->
+          <div class="col-auto">
+              <button class="btn btn-primary" type="submit">
+                 Search
+              </button>
+            <!-- /invite members -->
+          </div>
+          <!-- /.col-auto -->
+
+        </div>
+               {% csrf_token %}
+</form>
