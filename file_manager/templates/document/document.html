@@ -3,6 +3,11 @@
 {% block app_content %}
 <!-- .page -->
 <div class="page has-sidebar has-sidebar-expand-xl">
+{% if added_flag %}
+<div class="page-message" role="alert">
+              Awaiting Approval: <span class="text-muted-dark">Your document will be added once approved.</span>  <a href="#" class="btn btn-sm btn-icon btn-warning ml-1" aria-label="Close" onclick="$(this).parent().fadeOut()"><span aria-hidden="true"><i class="fa fa-times"></i></span></a>
+</div>
+{% endif %}
   <!-- .page-inner -->
   <div class="page-inner">
     <header class="page-title-bar">
@@ -67,7 +72,7 @@
             });
 
             $(".card-body").click(function (ev) { // for each edit contact url
-                location.href = 'list_document/' + $(this).find('.type_id').val();
+                location.href = 'list_document2?types=' + $(this).find('.type_id').val();
             });
 
 </script>

@@ -11,13 +11,14 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import environ
 from machina import MACHINA_MAIN_STATIC_DIR
 from forum_manager import MACHINA_MAIN_TEMPLATE_DIR
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
+env = environ.Env()
+environ.Env.read_env()
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -25,9 +26,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'iw049nw77mz(ull0n=o@vr(av4fzbd7m31e&$u7hm&&*g7-o0v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('IS_DEBUG', False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
+
+if env.str('ALLOWED_HOST', None) is not None:
+    ALLOWED_HOSTS.append(env.str('ALLOWED_HOST', None))
 
 
 # Application definition
@@ -75,6 +79,9 @@ MIDDLEWARE = [
     'machina.apps.forum_permission.middleware.ForumPermissionMiddleware',
 ]
 
+if env.bool('HAS_WHITENOISE', False):
+    MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
+
 ROOT_URLCONF = 'km_portal2.urls'
 
 TEMPLATES = [
@@ -103,12 +110,12 @@ WSGI_APPLICATION = 'km_portal2.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'km_portal2',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
-        'PORT': '32768',
+        'ENGINE': env.str('DB_ENGINE', 'django.db.backends.mysql'),
+        'NAME':  env.str('DB_NAME', 'km_portal2'),
+        'USER': env.str('DB_USER','root'),
+        'PASSWORD': env.str('DB_PASSWORD','root'),
+        'HOST': env.str('DB_HOST','127.0.0.1'),
+        'PORT': env.str('DB_PORT','32768'),
     }
 }
 
@@ -137,7 +144,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Manila'
 
 USE_I18N = True
 
@@ -167,11 +174,14 @@ LOGOUT_REDIRECT_URL = 'login'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-STATICFILES_DIRS = [
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "km_portal2/static"),
     MACHINA_MAIN_STATIC_DIR,
+)
 
-]
+if env.bool('HAS_WHITENOISE', False):
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CACHES = {
     'default': {

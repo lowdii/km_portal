@@ -1,5 +1,5 @@
 from account.models import Division, Position, Unit
-from file_manager.models import DocumentType
+from file_manager.models import DocumentType, SecratariatLevel
 
 Division.objects.create(name="Office of the Executive Director")
 Division.objects.create(name="Advocacy and Communication Division")
@@ -70,3 +70,8 @@ DocumentType.objects.create(type='RJJWC Accomplishment Reports ', description='R
 DocumentType.objects.create(type='Status of JJWA Implementation Report', description='Status of JJWA Implementation Report')
 DocumentType.objects.create(type='Statistics', description='Statistics')
 DocumentType.objects.create(type='List of LGUs with CLJIP', description='List of LGUs with CLJIP')
+
+
+SecratariatLevel.objects.create(level='National')
+SecratariatLevel.objects.create(level='Regional')
+
