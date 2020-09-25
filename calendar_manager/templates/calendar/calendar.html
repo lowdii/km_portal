@@ -17,6 +17,8 @@
     </div>
     <!-- /.page-section -->
        {% include "calendar/add_event.html" with form=form %}
+      {% include "calendar/edit_event.html"  %}
+
   </div>
   <!-- /.page-inner -->
     <button id="add_event" type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button>
@@ -41,9 +43,31 @@
             },
             aspectRatio: 1.9,
           initialView: 'dayGridMonth',
-    events: 'https://fullcalendar.io/demo-events.json'
+    {#events: 'https://fullcalendar.io/demo-events.json'#}
+         events: '{% url  "calendar_events" %}',
+            eventClick: function(info) {
+                {#alert('all_day: ' + info.event.allDay);#}
+                {#alert('id: ' + info.event.id);#}
+                {#alert('start: ' + info.event.start);#}
+                {#alert('end: ' + info.event.end);#}
 
+                // change the border color just for fun
+                $("#id_edit_title").val(info.event.title);
+                $("#id_edit_description").val(info.event.extendedProps.description );
+                $("#id_edit_all_day").prop('checked',info.event.allDay);
+                var fps = flatpickr("#id_edit_start",
+                    {enableTime: true, dateFormat: "Y-m-d H:i"});
+               fps.setDate(info.event.start, true, "Y-m-d H:i");
+                var fp = flatpickr("#id_edit_end",
+                    {enableTime: true, dateFormat: "Y-m-d H:i"});
+                fp.setDate(info.event.end, true, "Y-m-d H:i");
+                 $("#id_edit_id").val(info.event.id );
+
+                $("#edit_event_modal").modal('show');
+
+        }
         });
+
         calendar.render();
       });
 

@@ -11,13 +11,14 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import environ
 from machina import MACHINA_MAIN_STATIC_DIR
 from forum_manager import MACHINA_MAIN_TEMPLATE_DIR
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
+env = environ.Env()
+environ.Env.read_env()
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -25,9 +26,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'iw049nw77mz(ull0n=o@vr(av4fzbd7m31e&$u7hm&&*g7-o0v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('IS_DEBUG', False)
 
-ALLOWED_HOSTS = ['radiant-oasis-36548.herokuapp.com']
+ALLOWED_HOSTS = ['localhost']
+
+if env.str('ALLOWED_HOST', None) is not None:
+    ALLOWED_HOSTS.append(env.str('ALLOWED_HOST', None))
 
 
 # Application definition
@@ -44,7 +48,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
 
+    # Google Analytics
+    'google_analytics',
     # Machina dependencies:
     'mptt',
     'haystack',
@@ -72,9 +80,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware'
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'machina.apps.forum_permission.middleware.ForumPermissionMiddleware',
 ]
+
+if env.bool('HAS_WHITENOISE', False):
+    MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
 
 ROOT_URLCONF = 'km_portal2.urls'
 
@@ -147,7 +158,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Manila'
 
 USE_I18N = True
 
@@ -177,6 +188,14 @@ AUTHENTICATION_BACKENDS = (
 AUTH_USER_MODEL= "account.MyUser"
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = "email_out"
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_HOST = 'smtp.gmail.com'
+#EMAIL_PORT = 587
+#EMAIL_HOST_USER = 'kmportaldev@gmail.com'
+#EMAIL_HOST_PASSWORD = 'KmPortal!123'
+#EMAIL_USE_TLS = True
+
+
 
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
@@ -185,6 +204,15 @@ LOGOUT_REDIRECT_URL = 'login'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "km_portal2/static"),
+    MACHINA_MAIN_STATIC_DIR,
+)
+
+if env.bool('HAS_WHITENOISE', False):
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CACHES = {
     'default': {
@@ -218,3 +246,9 @@ MACHINA_DEFAULT_AUTHENTICATED_USER_FORUM_PERMISSIONS = [
 MEDIA_ROOT = os.path.join(BASE_DIR)
 MACHINA_FORUM_NAME = 'KM Portal Forum'
 MEDIA_URL = 'http://localhost:8001/'
+
+SITE_ID = 1
+
+GOOGLE_ANALYTICS = {
+    'google_analytics_id': 'UA-178514988-1',
+}

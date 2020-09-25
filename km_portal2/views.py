@@ -9,3 +9,12 @@ def dashboard(request):
     return render(request,
                   'dashboard/dashboard.html',
                   {'section': 'dashboard'})
+
+def privacy(request):
+    return render(request, 'public/privacy.html')
+
+def contact(request):
+    return render(request, 'public/contact.html')
+
+def terms(request):
+    return render(request, 'public/terms.html')

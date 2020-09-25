@@ -1,0 +1,21 @@
+{% extends "base_with_header.html" %}
+{% block title %}Contact Us{% endblock %}
+{% block app_content %}
+<div style="padding:20px;">
+    <h1>Contact Us</h1>
+
+
+    <h6>Address</h6>
+    <p>123 ABC St<br>
+        Brgy Teacher's Village
+        Quezon City, Philippines 1101</p>
+
+    <h6>Contact Number</h6>
+    <p>+63 1239 3321 (main)<br>
+        +63 1239 3322 (fax)</p>
+
+    <p></p>
+    <p> {{ "Send questions to foo@example.com" |urlize }}</p>
+</div>
+
+{% endblock %}

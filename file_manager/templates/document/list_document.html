@@ -21,14 +21,19 @@
       </nav>
       <!-- /.breadcrumb -->
       <!-- title -->
-      <h1 class="page-title">Documents</h1>
+{#      <h1 class="page-title">Documents</h1>#}
       <!-- /title -->
+
+
     </header>
     <!-- /.page-title-bar -->
 
     <!-- .page-section -->
     <div class="page-section">
       <!-- .card -->
+    {% include "document/document_header.html" %}
+
+
       <div class="card card-fluid">
         <!-- .card-body -->
         <div class="card-body">
@@ -74,5 +79,18 @@
 </div>
 <!-- /.page -->
 
-     {% include "pagination.html" with page=posts %}
+{#     {% include "pagination.html" with page=posts %}#}
 {% endblock %}
+
+
+ {% block page_specific_js %}
+     <script>
+            $("#add_document").click(function (ev) { // for each edit contact url
+                ev.preventDefault(); // prevent navigation
+                $("#add_document_modal").modal('show');
+                return false; // prevent the click propagation
+            });
+
+
+</script>
+    {% endblock %}

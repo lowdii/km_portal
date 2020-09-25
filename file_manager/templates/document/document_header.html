@@ -1,0 +1,62 @@
+{% include "document/add_document.html" with form=form %}
+           <div class="row mb-4">
+          <!-- .col-auto -->
+          <div class="col-auto">
+            <!-- invite members -->
+            <div class="dropdown">
+              <a id="add_document" href="#" data-form="{% url 'document_add' %}"  title="Add Document" class="btn btn-primary" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                 Add Document
+              </a>
+            </div>
+            <!-- /invite members -->
+          </div>
+          <!-- /.col-auto -->
+        </div>
+
+
+
+            <form class="form-group" action="{% url 'document_list2' %}" >
+          <!-- .col -->
+        <!-- grid row -->
+
+        <div class="row mb-4">
+          <div class="col-7">
+            <!-- .has-clearable -->
+            <div class="has-clearable">
+              <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true"><i class="fa fa-times-circle"></i></span>
+              </button>
+              <input type="text" name="keyword" class="form-control" placeholder="Search" value="{{ keyword }}">
+            </div>
+            <!-- /.has-clearable -->
+          </div>
+          <!-- /.col -->
+ <div class="col-4">
+            <!-- invite members -->
+            <div class="form-group">
+                      <select id="bss1" name="types" data-toggle="selectpicker" data-width="100%" multiple  data-max-options="4" title="Document Type">
+                          <optgroup label="Document Type">
+                              {% for type in doc_types %}
+                                  {% if type.id in types %}
+                                      <option selected value="{{ type.id }}"> {{  type.type }} </option>
+                                  {% else %}
+                                      <option value="{{ type.id }}"> {{  type.type }} </option>
+                                  {% endif %}
+                              {% endfor %}
+                              </optgroup>
+                          </select>
+                        </div><!-- /.form-group -->
+</div>
+            <!-- /invite members -->
+          <!-- .col-auto -->
+          <div class="col-auto">
+              <button class="btn btn-primary" type="submit">
+                 Search
+              </button>
+            <!-- /invite members -->
+          </div>
+          <!-- /.col-auto -->
+
+        </div>
+               {% csrf_token %}
+</form>

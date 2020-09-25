@@ -42,5 +42,5 @@ class PasswordChangeForm(BasePasswordChangeForm):
 def send_email(to_email, password):
     subject = "Account Creation in KM Portal"
     message = "Account creation. Username: {} Default Password: {}".format(to_email, password)
-    send_mail(subject, message, 'from@example.com', [to_email], fail_silently=False)
+    send_mail(subject, message, 'kmportaldev@gmail.com', [to_email], fail_silently=False)
 
