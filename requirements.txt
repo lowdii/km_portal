@@ -1,5 +1,5 @@
 
-django==3.0.9
+django==3.1.6
 django-heroku
 dj-database-url
 django-crispy-forms==1.9.2
