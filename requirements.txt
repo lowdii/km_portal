@@ -11,7 +11,7 @@ django-machina==1.1.2
 django-mptt==0.11.0
 django-widget-tweaks==1.4.8
 markdown2==2.3.9
-mistune==0.8.4
+mistune==2.0.3
 olefile==0.46
 Pillow==7.0.0
 psycopg2-binary==2.8.5
